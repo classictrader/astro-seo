@@ -7,7 +7,11 @@ import ExtendedTags from "./components/ExtendedTags.astro";
 import TwitterTags from "./components/TwitterTags.astro";
 import LanguageAlternatesTags from "./components/LanguageAlternatesTags.astro";
 
-export type TwitterCardType = "summary" | "summary_large_image" | "app" | "player";
+export type TwitterCardType =
+  | "summary"
+  | "summary_large_image"
+  | "app"
+  | "player";
 
 export interface Link extends HTMLLinkElement {
   prefetch: boolean;
@@ -131,15 +135,13 @@ if (Astro.props.title) {
 
 {updatedTitle ? <title set:html={updatedTitle} /> : null}
 
-{Astro.props.charset ? <meta charset={Astro.props.charset} /> : null}
-
-<link rel="canonical" href={Astro.props.canonical || Astro.url.href} />
-
 {
   Astro.props.description ? (
     <meta name="description" content={Astro.props.description} />
   ) : null
 }
+
+{Astro.props.charset ? <meta charset={Astro.props.charset} /> : null}
 
 <meta
   name="robots"
@@ -147,6 +149,8 @@ if (Astro.props.title) {
     Astro.props.nofollow ? "nofollow" : "follow"
   }`}
 />
+
+<link rel="canonical" href={Astro.props.canonical || Astro.url.href} />
 
 {Astro.props.openGraph && <OpenGraphBasicTags {...Astro.props} />}
 {Astro.props.openGraph?.optional && <OpenGraphOptionalTags {...Astro.props} />}
