@@ -24,7 +24,7 @@ export interface Props {
   titleDefault?: string;
   charset?: string;
   description?: string;
-  canonical?: URL | string;
+  canonical?: URL | string | false;
   nofollow?: boolean;
   noindex?: boolean;
   languageAlternates?: {
@@ -145,9 +145,11 @@ if (Astro.props.title) {
     Astro.props.nofollow ? "nofollow" : "follow"
   }`}
 />
-
-<link rel="canonical" href={Astro.props.canonical || Astro.url.href} />
-
+{
+  Astro.props.canonical !== false ? (
+    <link rel="canonical" href={Astro.props.canonical || Astro.url.href} />
+  ) : null
+}
 {Astro.props.openGraph && <OpenGraphBasicTags {...Astro.props} />}
 {Astro.props.openGraph?.optional && <OpenGraphOptionalTags {...Astro.props} />}
 {Astro.props.openGraph?.image && <OpenGraphImageTags {...Astro.props} />}
